@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НЕФОРЁНОК.РФ</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --link-color: #888;
+            --hover-bg: #000;
+            --hover-text: #fff;
+            --title-opacity: 0.12;
+        }
+
+        body.dark-theme {
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --link-color: #bbb;
+            --hover-bg: #fff;
+            --hover-text: #000;
+            --title-opacity: 0.15;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            cursor: crosshair;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Очищенный дисклеймер */
+        #disclaimer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1000;
+            display: flex;
+            background: #000;
+        }
+
+        .theme-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .light-opt { background-color: #ffffff; color: #000; }
+        .dark-opt { background-color: #050505; color: #fff; border-left: 1px solid #333; }
+
+        .theme-option:hover { flex: 1.5; }
+
+        .theme-option h2 {
+            font-size: 3rem;
+            letter-spacing: 10px;
+            margin: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-option:hover h2 {
+            transform: scale(1.1);
+        }
+
+        /* Контент сайта */
+        #main-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .domain-title {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 7vw;
+            opacity: var(--title-opacity);
+            z-index: -1;
+            pointer-events: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: opacity 0.5s ease;
+            font-weight: normal;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .link-item {
+            position: absolute;
+            text-decoration: none;
+            color: var(--link-color);
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            white-space: nowrap;
+            padding: 5px;
+            mix-blend-mode: normal;
+            font-weight: bold;
+            filter: blur(1px);
+        }
+
+        .link-item:hover {
+            font-size: 2rem;
+            z-index: 50;
+            background: var(--hover-bg);
+            color: var(--hover-text);
+            letter-spacing: 3px;
+            filter: blur(0px);
+            transform: scale(1.1);
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(5px, 5px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .safe-float { animation: float 4s infinite ease-in-out; }
+    </style>
+</head>
+<body>
+
+<div id="disclaimer">
+    <button class="theme-option light-opt" onclick="initSite('light')">
+        <h2>СВЕТ</h2>
+    </button>
+    <button class="theme-option dark-opt" onclick="initSite('dark')">
+        <h2>ТЬМА</h2>
+    </button>
+</div>
+
+<div id="main-content">
+    <div class="noise-overlay"></div>
+    <div class="domain-title">нефорёнок.рф</div>
+    
+    <div id="links-container">
+        <a href="https://t.me/nephoryonok" class="link-item safe-float" style="top: 15%; left: 10%; animation-delay: 0s;">ТГ_КАНАЛ</a>
+        <a href="https://t.me/kuz8kin" class="link-item" style="top: 25%; left: 60%;">ЛИЧКА_ТГ</a>
+        <a href="https://instagram.com/nephoryonok" class="link-item safe-float" style="top: 40%; left: 5%; animation-delay: 1s;">ИНСТА</a>
+        <a href="https://www.youtube.com/@nephoryonok" class="link-item" style="top: 65%; left: 35%;">ЮТУБ</a>
+        <a href="https://www.youtube.com/@jrt_va" class="link-item safe-float" style="top: 10%; left: 70%; animation-delay: 0.5s;">АРХИВ_ЮТУБ</a>
+        <a href="https://www.twitch.tv/nephoryonok" class="link-item" style="top: 85%; left: 20%;">ТВИЧ</a>
+        <a href="https://soundcloud.com/nephoryonok" class="link-item safe-float" style="top: 50%; left: 65%; animation-delay: 1.5s;">СК_ОСНОВА</a>
+        <a href="https://soundcloud.com/soroksemkhromosom" class="link-item" style="top: 30%; left: 25%;">СК_СТАРОЕ</a>
+        <a href="https://soundcloud.com/dalbayyob" class="link-item safe-float" style="top: 75%; left: 10%; animation-delay: 2s;">СК_ФРИСТАЙЛЫ</a>
+        <a href="https://soundcloud.com/iv4-sc" class="link-item" style="top: 88%; left: 55%;">СК_НОЙЗ</a>
+        <a href="https://tiktok.com/@nephoryonok" class="link-item safe-float" style="top: 5%; left: 40%; animation-delay: 0.2s;">ТИКТОК</a>
+        <a href="https://genius.com/xx_xXx_XXX-__xXXX-xXxX_XxXXx-_XXx-XxxXX_xx_XxX-X-x" class="link-item" style="top: 92%; left: 35%;">ДЖИНИУС</a>
+        <a href="https://steamcommunity.com/id/nephoryonok/" class="link-item safe-float" style="top: 48%; left: 80%; animation-delay: 0.8s;">СТИМ</a>
+    </div>
+</div>
+
+<script>
+    function initSite(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+        
+        const disclaimer = document.getElementById('disclaimer');
+        disclaimer.style.opacity = '0';
+        disclaimer.style.transition = 'opacity 0.8s ease';
+        
+        setTimeout(() => {
+            disclaimer.style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }, 800);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        const links = document.querySelectorAll('.link-item');
+        links.forEach(link => {
+            const rect = link.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const dist = Math.sqrt(x*x + y*y);
+            
+            if (dist < 200) {
+                link.style.transition = "transform 0.3s ease-out";
+                link.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+            } else {
+                link.style.transform = `translate(0px, 0px)`;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
